@@ -60,6 +60,7 @@ Some of the initial migrations and model set up has been done for you.
 ## User Stories
 
 ```
+[x]
 Story 1
 Studio Index
 
@@ -70,6 +71,7 @@ And underneath each studio, I see the titles of all of its movies.
 ```
 
 ```
+[x]
 Story 2
 Movie Show
 
@@ -82,6 +84,7 @@ And I see the average age of all of the movie's actors
 
 ```
 Story 3
+[ ]
 Add an Actor to a Movie
 
 As a user,
