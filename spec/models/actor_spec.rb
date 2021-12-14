@@ -16,5 +16,13 @@ RSpec.describe Actor do
       expect(Actor.order_youngest_to_oldest).to eq([megan, shia, jon])
       expect(Actor.order_youngest_to_oldest).to_not eq([jon, shia, megan])
     end
+
+    it 'can find the average age of all the actors' do
+      megan = Actor.create!(name: "Megan Fox", age: 35)
+      shia = Actor.create!(name: "Shia LaBeouf", age: 37)
+      jon = Actor.create!(name: "Jon Voight", age: 82 )
+
+      expect(Actor.average_age).to eq(51)
+    end
   end
 end
