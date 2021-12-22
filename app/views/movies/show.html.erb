@@ -2,22 +2,9 @@
 <p><%= @movie.title %></p>
 <p><%= @movie.creation_year %></p>
 <p><%= @movie.genre %> </p>
-<p><% @actors.each do |actor| %></p>
-  <%= actor.name %>
-<% end  %>
 
-<p>"Average age of actors: <%= @age %>"</p>
+<% @movie.order_youngest_to_oldest.each do |actor| %>
+  <p><%= actor.name %></p>
+<% end %>
 
-<h3>Add an actor to this movie</h3>
-  <%= form_with url: "/movies/#{@movie.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
-<% end  %>
-
-<% if @actors %>
-  <% @actors.each do |actor| %>
-    <%= actor.name %>
-    <%= button_to "Submit", "/movie_actors", method: :post, params: {actor: actor.id, movie: @movie.id} %>
-  <% end  %>
-<% end  %>
+<p>"Average age of actors: <%= @movie.average_age %>"</p>
