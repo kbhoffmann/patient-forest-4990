@@ -1,10 +1,10 @@
 class MovieActorsController < ApplicationController
   def create
-
-    movie_actor = MovieActor.new(movie_id: params[:movie], actor_id: params[:actor])
-
+    actor = Actor.find_by(name: params[:name])
+    movie_actor = MovieActor.new(movie_id: params[:id] , actor_id: actor.id )
+    
     movie_actor.save
 
-    redirect_to "/movies/#{params[:movie]}
+    redirect_to "/movies/#{params[:id]}"
   end
 end

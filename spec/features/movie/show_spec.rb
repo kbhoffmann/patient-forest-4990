@@ -8,11 +8,6 @@ RSpec.describe "Movie Show Page" do
     dory = disney.movies.create!(title: 'Finding Dory', creation_year: 2016 , genre: 'Family' )
     transformers = paramount.movies.create!(title: 'Transformers', creation_year: 2007 , genre: 'Action' )
 
-    megan = Actor.create!(name: "Megan Fox", age: 35)
-    shia = Actor.create!(name: "Shia LaBeouf", age: 37)
-    jon = Actor.create!(name: "Jon Voight", age: 82 )
-    ellen = Actor.create!(name: "Ellen DeGeneres", age: 63 )
-
     visit "/movies/#{transformers.id}"
 
     expect(page).to have_content('Transformers')
@@ -67,5 +62,30 @@ RSpec.describe "Movie Show Page" do
     visit "/movies/#{transformers.id}"
 
     expect(page).to have_content("Average age of actors: 51")
+  end
+
+  it 'can add an existing actor to a movie' do
+    paramount = Studio.create!(name: 'Paramount Pictures', location: 'Los Angeles')
+
+    transformers = paramount.movies.create!(title: 'Transformers', creation_year: 2007 , genre: 'Action' )
+
+    megan = Actor.create!(name: "Megan Fox", age: 35)
+    shia = Actor.create!(name: "Shia LaBeouf", age: 37)
+    jon = Actor.create!(name: "Jon Voight", age: 82 )
+    tyrese = Actor.create!(name: "Tyrese", age: 42)
+
+    MovieActor.create!(movie_id: transformers.id, actor_id: megan.id )
+    MovieActor.create!(movie_id: transformers.id, actor_id: shia.id )
+    MovieActor.create!(movie_id: transformers.id, actor_id: jon.id )
+
+    visit "/movies/#{transformers.id}"
+
+    expect(page).to_not have_content(tyrese.name)
+
+    fill_in "Name", with: tyrese.name
+    click_button "Submit"
+
+    expect(current_path).to eq("/movies/#{transformers.id}")
+    expect(page).to have_content(tyrese.name)
   end
 end

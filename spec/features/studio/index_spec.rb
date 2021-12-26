@@ -12,10 +12,12 @@ RSpec.describe "Studio Index Page" do
     visit "/studios"
 
     expect(page).to have_content("Name: Walt Disney Pictures")
+    # expect(page).to have_content(disney.name)
     expect(page).to have_content("Location: Burbank")
     expect(page).to have_content("Name: Paramount Pictures")
     expect(page).to have_content("Location: Los Angeles")
     expect(page).to have_content("Movies: Finding Dory")
     expect(page).to have_content("Movies: Transformers")
+    #try within blocks to separate the 2 studios to show where they appear in the page
   end
 end
